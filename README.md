@@ -1,95 +1,119 @@
+
 # MOv — Análise de Preferências Turísticas
 
-Projeto Final — Desenvolvimento de IA para Análise Preditiva | SCTEC
+**Projeto Final — Desenvolvimento de IA para Análise Preditiva | SCTEC**
 
-## 1. Objetivo
+## 1. Apresentação
 
-Desenvolver um protótipo de Machine Learning capaz de
-identificar agrupamentos de preferências turísticas,
-como estudo inicial para a futura plataforma MOv,
-voltada à personalização de experiências em
-Navegantes, Santa Catarina.
+O MOv é um projeto experimental de Machine Learning desenvolvido para investigar padrões de preferências turísticas a partir de dados de avaliações de usuários.
 
-## 2. Base de dados
+A proposta é explorar como técnicas de Inteligência Artificial podem contribuir futuramente para a personalização de experiências na plataforma MOv, idealizada para o turismo em Navegantes, Santa Catarina.
 
-- Arquivo: `data/tripadvisor_review.csv`
-- Registros: 980
-- Variáveis de preferência: 10
-- Identificador adicional: User ID
-- Referência pública: Travel Reviews — UCI Machine Learning Repository
-- Link: https://archive.ics.uci.edu/dataset/484/travel+reviews
+Nesta etapa, o projeto contempla análise exploratória, treinamento de modelo não supervisionado, avaliação de agrupamentos e disponibilização de uma API para consulta dos resultados.
 
-A base não representa especificamente visitantes de Navegantes.
-O projeto tem caráter experimental.
+## 2. Objetivo
 
-## 3. Metodologia
+Desenvolver um protótipo capaz de identificar agrupamentos de usuários com características semelhantes de preferências turísticas, utilizando o algoritmo K-Means.
 
-- Análise exploratória dos dados
-- Divisão: 60% treinamento, 20% validação, 20% teste
-- Padronização com StandardScaler
-- Agrupamento não supervisionado com K-Means
-- Avaliação de K entre 2 e 8
-- Seleção de 2 clusters
-- Serialização com Joblib
+O projeto constitui um estudo exploratório de segmentação, sem previsão de destinos ou geração automática de recomendações.
 
-O modelo salvo utiliza um Pipeline com StandardScaler e KMeans.
+## 3. Base de dados
 
-## 4. Resultados
+Foi utilizada a base pública **Travel Reviews**, disponibilizada pelo UCI Machine Learning Repository.
+
+- **Fonte:** [UCI — Travel Reviews](https://archive.ics.uci.edu/dataset/484/travel+reviews)
+- **Arquivo:** `data/tripadvisor_review.csv`
+- **Registros:** 980
+- **Variáveis de preferência:** 10
+- **Identificador adicional:** User ID
+- **Valores ausentes:** nenhum identificado
+
+As variáveis representam avaliações de diferentes categorias de estabelecimentos e atrações turísticas.
+
+**Observação:** a base não contém dados específicos de visitantes de Navegantes. Sua utilização tem finalidade acadêmica e experimental.
+
+## 4. Metodologia
+
+O desenvolvimento foi organizado nas seguintes etapas:
+
+1. Carregamento e análise exploratória dos dados.
+2. Verificação da qualidade da base.
+3. Preparação das dez variáveis de preferência.
+4. Divisão dos registros em treinamento (60%), validação (20%) e teste (20%).
+5. Padronização dos dados com `StandardScaler`, ajustado no treinamento.
+6. Avaliação do algoritmo K-Means com valores de K entre 2 e 8.
+7. Seleção de dois agrupamentos com base na avaliação de validação.
+8. Avaliação final com dados de teste.
+9. Serialização do modelo com Joblib.
+10. Integração do modelo à API FastAPI.
+
+O artefato salvo utiliza um Pipeline composto por `StandardScaler` e `KMeans`.
+
+## 5. Resultados
 
 | Métrica | Resultado |
 |---|---|
-| Silhouette de validação | 0.1866 |
-| Silhouette de teste | 0.2185 |
+| Silhouette — validação | 0.1866 |
+| Silhouette — teste | 0.2185 |
 | Número de clusters | 2 |
-| Registros no grupo 0 | 404 |
-| Registros no grupo 1 | 576 |
+| Registros no grupo 0 — base completa | 404 |
+| Registros no grupo 1 — base completa | 576 |
 
-Os resultados indicam separação relativamente fraca entre
-os agrupamentos. A segmentação deve ser interpretada
-como um protótipo exploratório, não como uma
-recomendação turística já validada.
+Os resultados indicam uma separação relativamente fraca entre os agrupamentos.
 
-Métricas detalhadas: `reports/metricas_modelo.json`.
+Assim, a segmentação deve ser interpretada como um resultado exploratório, que ainda necessita de validação e aprimoramento antes de qualquer aplicação comercial.
 
-## 5. Estrutura do projeto
+As métricas estão disponíveis em `reports/metricas_modelo.json`.
+
+## 6. Estrutura do projeto
 
 ```text
-data/
-    tripadvisor_review.csv
-models/
-    mov_kmeans_pipeline.joblib
-reports/
-    metricas_modelo.json
-main.py
-routers.py
-schemas.py
-services.py
-test_api.py
-requirements.txt
-README.md
+Mov-analise-preditiva-sctec/
+├── data/
+│   └── tripadvisor_review.csv
+├── models/
+│   └── mov_kmeans_pipeline.joblib
+├── notebooks/
+│   └── MOv_Analise_Preditiva_SCTEC (2).ipynb
+├── reports/
+│   └── metricas_modelo.json
+├── main.py
+├── routers.py
+├── schemas.py
+├── services.py
+├── test_api.py
+├── requirements.txt
+└── README.md
 ```
 
-O notebook de treinamento também deverá ser incluído
-no repositório final.
+## 7. Tecnologias utilizadas
 
-## 6. Tecnologias
+- **Python:** linguagem principal
+- **Pandas e NumPy:** manipulação e análise de dados
+- **Scikit-learn:** pré-processamento, treinamento e avaliação
+- **Joblib:** persistência do modelo
+- **FastAPI:** desenvolvimento da API
+- **Pydantic:** validação dos dados
+- **Uvicorn:** servidor ASGI
+- **Pytest:** testes automatizados
 
-- Python
-- Pandas e NumPy
-- Scikit-learn
-- Joblib
-- FastAPI
-- Pydantic
-- Uvicorn
-- Pytest
+## 8. Instalação e configuração
 
-## 7. Instalação
+Pré-requisitos: Python e Git instalados.
 
-Requisitos: Python e Git instalados.
+Clone o repositório:
 
-Clone o repositório e entre na pasta do projeto.
+```bash
+git clone https://github.com/SamiraSalema/Mov-analise-preditiva-sctec.git
+```
 
-Crie um ambiente virtual:
+Acesse a pasta:
+
+```bash
+cd Mov-analise-preditiva-sctec
+```
+
+Crie o ambiente virtual:
 
 ```bash
 python -m venv .venv
@@ -97,13 +121,13 @@ python -m venv .venv
 
 Ative o ambiente virtual.
 
-Windows:
+**Windows (Prompt de Comando):**
 
-```bash
-.venv\Scripts\activate
+```bat
+.venv\Scripts\activate.bat
 ```
 
-Linux/macOS:
+**Linux/macOS:**
 
 ```bash
 source .venv/bin/activate
@@ -115,27 +139,29 @@ Instale as dependências:
 python -m pip install -r requirements.txt
 ```
 
-## 8. Executar a API
+## 9. Executando a API
 
-Na pasta principal do projeto:
+Na pasta principal do projeto, execute:
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Acesse:
+Após iniciar o servidor, acesse:
 
-- Swagger: http://127.0.0.1:8000/docs
-- Health: http://127.0.0.1:8000/health
-- OpenAPI: http://127.0.0.1:8000/openapi.json
+- **Swagger:** http://127.0.0.1:8000/docs
+- **Health:** http://127.0.0.1:8000/health
+- **OpenAPI:** http://127.0.0.1:8000/openapi.json
 
-## 9. Endpoints
+Os endereços são locais e exigem que a API esteja em execução.
+
+## 10. Endpoints
 
 ### GET /health
 
-Verifica se o modelo está carregado na memória.
+Verifica a disponibilidade da API e o carregamento do modelo.
 
-Resposta de exemplo:
+Exemplo de resposta:
 
 ```json
 {
@@ -146,8 +172,7 @@ Resposta de exemplo:
 
 ### POST /predict
 
-Recebe dez valores de preferências turísticas
-e retorna o grupo atribuído pelo modelo.
+Recebe dez valores de preferências turísticas, dentro do intervalo de 0 a 4, e retorna o grupo atribuído pelo modelo.
 
 Exemplo de requisição:
 
@@ -166,7 +191,7 @@ Exemplo de requisição:
 }
 ```
 
-Resposta observada:
+Exemplo de resposta observada:
 
 ```json
 {
@@ -175,17 +200,19 @@ Resposta observada:
 }
 ```
 
-## 10. Validação e testes
+O número do grupo representa um agrupamento identificado pelo modelo, não uma classificação de qualidade turística.
 
-A API utiliza Pydantic para validar os dados de entrada.
+## 11. Validação e testes
 
-Códigos HTTP verificados:
+A API utiliza Pydantic para validar os dados recebidos.
 
-- 200: operação bem-sucedida
-- 404: rota inexistente
-- 422: entrada inválida
-- 503: modelo indisponível
-- 500: erro interno inesperado
+Foram verificados os seguintes códigos HTTP:
+
+- **200:** operação bem-sucedida
+- **404:** rota inexistente
+- **422:** dados de entrada inválidos
+- **503:** modelo indisponível
+- **500:** erro interno inesperado
 
 Para executar os testes automatizados:
 
@@ -193,23 +220,29 @@ Para executar os testes automatizados:
 python -m pytest -v
 ```
 
-Foram aprovados quatro testes automatizados.
+**Resultado:** quatro testes automatizados aprovados, contemplando disponibilidade da API, predição e validação de entradas.
 
-## 11. Limitações e melhorias futuras
+## 12. Limitações e melhorias futuras
 
-- A base não representa diretamente o turismo de Navegantes.
-- A separação entre clusters é relativamente fraca.
-- O modelo identifica agrupamentos, não prevê destinos
-  nem garante recomendações personalizadas.
-- Coletar dados próprios de visitantes.
-- Investigar novas variáveis e algoritmos.
-- Relacionar perfis a atrações e experiências locais.
-- Avaliar a utilidade das recomendações com usuários reais.
+O projeto apresenta limitações importantes:
 
-## 12. Vídeo de demonstração
+- A base não representa diretamente os visitantes de Navegantes.
+- Os agrupamentos apresentam separação relativamente fraca.
+- O modelo não prevê destinos nem produz recomendações personalizadas.
+- Os resultados não comprovam a utilidade comercial da segmentação.
 
-Link: a inserir após a gravação e publicação.
+Como possibilidades de evolução, destacam-se a coleta de dados locais, a investigação de novas variáveis, a comparação de algoritmos e a avaliação dos perfis com usuários reais.
 
-## 13. Desenvolvimento
+## 13. Vídeo de demonstração
 
-Projeto acadêmico desenvolvido no âmbito do SCTEC.
+**Link:** a inserir após a gravação e publicação.
+
+O vídeo apresentará o objetivo do projeto, a metodologia, os resultados, a estrutura do código, a API e os testes realizados.
+
+## 14. Autoria
+
+**Samira Salema**
+
+Projeto acadêmico desenvolvido no âmbito do SCTEC — Desenvolvimento de IA para Análise Preditiva.
+
+**Repositório:** [MOv — GitHub](https://github.com/SamiraSalema/Mov-analise-preditiva-sctec)
