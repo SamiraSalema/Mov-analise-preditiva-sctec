@@ -1,0 +1,14 @@
+{
+    "projeto": "MOv - Analise de Preferencias Turisticas",
+    "algoritmo": "KMeans",
+    "tipo_aprendizado": "Nao supervisionado",
+    "total_registros": 980,
+    "numero_variaveis": 10,
+    "numero_clusters": 2,
+    "silhouette_validacao": 0.18663282604405232,
+    "silhouette_teste": 0.21853858768873685,
+    "distribuicao_clusters": {
+        "0": 404,
+        "1": 576
+    }
+}
