@@ -235,7 +235,7 @@ Como possibilidades de evolução, destacam-se a coleta de dados locais, a inves
 
 ## 13. Vídeo de demonstração
 
-**Link:** a inserir após a gravação e publicação.
+Link:https://youtu.be/oSwKYpeQrA0
 
 O vídeo apresentará o objetivo do projeto, a metodologia, os resultados, a estrutura do código, a API e os testes realizados.
 
